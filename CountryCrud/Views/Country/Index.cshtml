@@ -1,0 +1,54 @@
+﻿@model List<FullInfo>
+
+ <div class="container">
+     <div class="row pt-4 pb-2">
+         <div class="col-6">
+             <h2 class="text-primary">
+                 Country List
+             </h2>
+         </div>
+         <div class="col-6 text-end">
+             <a asp-controller="Country" asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-plus-square"></i> Create New Data
+             </a>
+         </div>
+     </div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th>
+            Country
+        </th>
+        <th>
+            City
+        </th>
+        <th>
+            Capital
+        </th>
+        <th>
+            Population
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.Country</td>
+                <td>@item.City</td>
+                <td>@item.IsCapital</td>
+                <td>@item.Population</td>
+                <td>
+                    <div>
+                        <a asp-controller="Country" asp-action="Delete" class="btn btn-danger">
+                                <i class="bi bi-trash3"></i> Delete
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
