@@ -13,7 +13,7 @@ namespace CountryCrud.Controllers
         }
         public IActionResult Index()
         {
-            List<FullInfo> objCountryList = _db.Infos.OrderBy(s => s.IsCapital == true).ToList();
+            List<FullInfo> objCountryList = _db.Infos.OrderByDescending(s => s.IsCapital == true).ToList();
             return View(objCountryList);
         }
 
@@ -34,17 +34,50 @@ namespace CountryCrud.Controllers
             return View();
         }
 
+        public IActionResult Edit(int id)
+        {
+            FullInfo obj = _db.Infos.Find(id);
+            return View(obj);
+        }
+
         [HttpPost]
+        public IActionResult Edit(FullInfo obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Infos.Update(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
         public IActionResult Delete(int id)
         {
             FullInfo obj = _db.Infos.Find(id);
-            if (obj == null)
-            {
-                return NotFound();
-            }
+            return View(obj);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeletePost(int id)
+        {
+            FullInfo obj = _db.Infos.Find(id);
             _db.Infos.Remove(obj);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        //[HttpDelete]
+        //public IActionResult Delete(int id)
+        //{
+        //    FullInfo obj = _db.Infos.Find(id);
+        //    if (obj == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    _db.Infos.Remove(obj);
+        //    _db.SaveChanges();
+        //    return Ok();
+        //}
     }
 }
