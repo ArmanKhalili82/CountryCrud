@@ -26,7 +26,7 @@ namespace CountryCrud.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(FullInfo obj)
         {
-            _infoService.Create(obj);
+            await _infoService.Create(obj);
             //if (ModelState.IsValid)
             //{
             //   await _db.Infos.AddAsync(obj);
@@ -38,8 +38,8 @@ namespace CountryCrud.Controllers
 
         public IActionResult Edit(int id)
         {
-            _infoService.Edit(id);
-            return View(id);
+            var item = infoService.Edit(id);
+            return View(item);
         }
 
         [HttpPost]
@@ -57,8 +57,8 @@ namespace CountryCrud.Controllers
 
         public IActionResult Delete(int id)
         {
-            _infoService.Delete(id);
-            return View();
+            var item = _infoService.Delete(id);
+            return View(item);
         }
 
         [HttpPost, ActionName("Delete")]

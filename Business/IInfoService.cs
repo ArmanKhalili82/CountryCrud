@@ -15,5 +15,6 @@ namespace Business
         Task Edit(FullInfo fullInfo);
         void Delete(int id);
         Task DeletePost(int id);
+        Task<FullInfo>GetById(int id);
     }
 }

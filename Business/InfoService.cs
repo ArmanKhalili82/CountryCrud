@@ -50,5 +50,11 @@ namespace Business
             List<FullInfo> objCountryList = await _db.Infos.OrderByDescending(s => s.IsCapital == true).ToListAsync();
             return objCountryList;
         }
+
+        public async Task<FullInfo> GetById(int id)
+        {
+            var item = await _db.Infos.Find(id);
+            return item;
+        }
     }
 }
