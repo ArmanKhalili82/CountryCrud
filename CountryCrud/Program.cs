@@ -1,3 +1,4 @@
+using Business;
 using CountryCrud.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<CountryDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CountryConnectionString")));
+builder.Services.AddScoped<IInfoService, InfoService>();
 
 
 var app = builder.Build();

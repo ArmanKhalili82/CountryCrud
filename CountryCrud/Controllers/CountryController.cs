@@ -1,4 +1,5 @@
-﻿using CountryCrud.Data;
+﻿using Business;
+using CountryCrud.Data;
 using CountryCrud.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,14 +7,14 @@ namespace CountryCrud.Controllers
 {
     public class CountryController : Controller
     {
-        private readonly CountryDbContext _db;
-        public CountryController(CountryDbContext db)
+        private IInfoService _infoService;
+        public CountryController(IInfoService infoService)
         {
-            _db = db;
+            _infoService = infoService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<FullInfo> objCountryList = _db.Infos.OrderByDescending(s => s.IsCapital == true).ToList();
+            List<FullInfo> objCountryList = await _infoService.GetAll();
             return View(objCountryList);
         }
 
@@ -23,47 +24,50 @@ namespace CountryCrud.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(FullInfo obj)
+        public async Task<IActionResult> Create(FullInfo obj)
         {
-            if (ModelState.IsValid)
-            {
-                _db.Infos.Add(obj);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            _infoService.Create(obj);
+            //if (ModelState.IsValid)
+            //{
+            //   await _db.Infos.AddAsync(obj);
+            //   await _db.SaveChangesAsync();
+            //    return RedirectToAction("Index");
+            //}
             return View();
         }
 
         public IActionResult Edit(int id)
         {
-            FullInfo obj = _db.Infos.Find(id);
-            return View(obj);
+            _infoService.Edit(id);
+            return View(id);
         }
 
         [HttpPost]
-        public IActionResult Edit(FullInfo obj)
+        public async Task<IActionResult> Edit(FullInfo obj)
         {
-            if (ModelState.IsValid)
-            {
-                _db.Infos.Update(obj);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            _infoService.Edit(obj);
+            //if (ModelState.IsValid)
+            //{
+            //    await _db.Infos.Update(obj);
+            //    await _db.SaveChangesAsync();
+            //    return RedirectToAction("Index");
+            //}
             return View();
         }
 
         public IActionResult Delete(int id)
         {
-            FullInfo obj = _db.Infos.Find(id);
-            return View(obj);
+            _infoService.Delete(id);
+            return View();
         }
 
         [HttpPost, ActionName("Delete")]
-        public IActionResult DeletePost(int id)
+        public async Task<IActionResult> DeletePost(int id)
         {
-            FullInfo obj = _db.Infos.Find(id);
-            _db.Infos.Remove(obj);
-            _db.SaveChanges();
+            _infoService.DeletePost(id);
+            //FullInfo obj = await _db.Infos.FindAsync(id);
+            //await _db.Infos.RemoveAsync(obj);
+            //await _db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
