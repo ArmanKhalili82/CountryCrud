@@ -38,7 +38,7 @@ namespace CountryCrud.Controllers
 
         public IActionResult Edit(int id)
         {
-            var item = infoService.Edit(id);
+            var item = _infoService.GetById(id);
             return View(item);
         }
 
@@ -57,7 +57,7 @@ namespace CountryCrud.Controllers
 
         public IActionResult Delete(int id)
         {
-            var item = _infoService.Delete(id);
+            var item = _infoService.GetById(id);
             return View(item);
         }
 

@@ -53,7 +53,7 @@ namespace Business
 
         public async Task<FullInfo> GetById(int id)
         {
-            var item = await _db.Infos.Find(id);
+            var item = await _db.Infos.FindAsync(id);
             return item;
         }
     }
