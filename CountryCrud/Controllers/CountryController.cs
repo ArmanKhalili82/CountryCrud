@@ -36,9 +36,9 @@ namespace CountryCrud.Controllers
             return View();
         }
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var item = _infoService.GetById(id);
+            var item = await _infoService.GetById(id);
             return View(item);
         }
 
@@ -55,9 +55,9 @@ namespace CountryCrud.Controllers
             return View();
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var item = _infoService.GetById(id);
+            var item = await _infoService.GetById(id);
             return View(item);
         }
 
