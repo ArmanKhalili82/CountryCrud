@@ -12,12 +12,15 @@ namespace CountryCrud.Controllers
         {
             _infoService = infoService;
         }
+
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             List<FullInfo> objCountryList = await _infoService.GetAll();
             return View(objCountryList);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -36,13 +39,14 @@ namespace CountryCrud.Controllers
             return View();
         }
 
+        [HttpGet, ActionName("Edit")]
         public async Task<IActionResult> Edit(int id)
         {
             var item = await _infoService.GetById(id);
             return View(item);
         }
 
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         public async Task<IActionResult> Edit(FullInfo obj)
         {
             _infoService.Edit(obj);
@@ -55,6 +59,7 @@ namespace CountryCrud.Controllers
             return View();
         }
 
+        [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             var item = await _infoService.GetById(id);
