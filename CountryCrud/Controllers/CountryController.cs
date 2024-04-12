@@ -49,14 +49,14 @@ namespace CountryCrud.Controllers
         [HttpPost, ActionName("Edit")]
         public async Task<IActionResult> Edit(FullInfo obj)
         {
-            _infoService.Edit(obj);
+            await _infoService.Edit(obj);
             //if (ModelState.IsValid)
             //{
             //    await _db.Infos.Update(obj);
             //    await _db.SaveChangesAsync();
             //    return RedirectToAction("Index");
             //}
-            return View();
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -69,7 +69,7 @@ namespace CountryCrud.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeletePost(int id)
         {
-            _infoService.DeletePost(id);
+            await _infoService.DeletePost(id);
             //FullInfo obj = await _db.Infos.FindAsync(id);
             //await _db.Infos.RemoveAsync(obj);
             //await _db.SaveChangesAsync();
